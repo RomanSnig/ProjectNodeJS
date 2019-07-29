@@ -3,6 +3,7 @@ const bodyPurser = require('body-parser');
 const app = express();
 
 const userRouter = require('./routes/userRouter');
+const authRouter = require('./routes/authRouter');
 
 const cors = require('cors');
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(bodyPurser.urlencoded({extended: true}));
 
 
 app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res, next) =>{
     res.end('Good');
