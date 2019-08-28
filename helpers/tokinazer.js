@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
-const {secret} = require('../constants/secret');
+const {secret, refreshSecret} = require('../constants/secret');
 
 module.exports = (data) => {
-    return jwt.sign(data, secret, {expiresIn: '24h'});
+    return {
+       accessToken: jwt.sign(data, secret, {expiresIn: '24h'}),
+       refreshToken: jwt.sign(data, refreshSecret, {expiresIn: '30d'})
+
+    };
 };

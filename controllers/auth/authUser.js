@@ -1,7 +1,8 @@
 const db = require('../../dataBase').getInstance();
 const tokenizer = require('../../helpers/tokinazer');
+const {checkHashPassword} = require('../../helpers/passwordHasher');
 
-module.exports = async (req, res, next) =>{
+module.exports = async (req, res) =>{
   try {
       const UserModel = db.getModel('user');
       const {email = '', password = ''} = req.body;
@@ -11,11 +12,15 @@ module.exports = async (req, res, next) =>{
       const isPresent = await UserModel.findOne({
           where: {
               email: email,
-              password: password
+              // password: password
           }
       });
       if (!isPresent) throw new Error('You are not register');
-      const {id, name} = isPresent;
+      const {id, name, password: hashPassword} = isPresent;
+
+      const isPassOK = await checkHashPassword(password, hashPassword);
+      if (!isPassOK) throw new Error('Password is wrong');
+
       const token = tokenizer({id, name});
       res.json({
           access: true,
