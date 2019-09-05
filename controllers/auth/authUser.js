@@ -16,16 +16,28 @@ module.exports = async (req, res) =>{
           }
       });
       if (!isPresent) throw new Error('You are not register');
+      // const passwordChecker = await UserModel.findOne({
+      //    where: {
+      //        email,
+      //        password
+      //    }
+      // });
+      // if (!passwordChecker) throw new Error('Password is wrong');
+      // const {id, name, password: hashPassword} = isPresent;
       const {id, name, password: hashPassword} = isPresent;
 
       const isPassOK = await checkHashPassword(password, hashPassword);
       if (!isPassOK) throw new Error('Password is wrong');
 
       const token = tokenizer({id, name});
+      // const token = {id, name};
+      // res.json(passwordChecker);
       res.json({
           access: true,
-          accessToken: token
+          msg: token,
+          user: isPresent
       })
+      // res.json(token)
   }
   catch (e) {
     console.log(e);
@@ -35,3 +47,49 @@ module.exports = async (req, res) =>{
       })
   }
 };
+
+// module.exports = async (req, res) =>{
+//     try {
+//         const UserModel = db.getModel('user');
+//         const {email = '', password = ''} = req.body;
+//         if (!email || !password) {
+//             throw new Error('Some field is empty')
+//         }
+//
+//         // const token = ();
+//         const isPresent = await UserModel.findOne({
+//             where: {
+//                 email: email,
+//                 // password: password
+//             }
+//         });
+//         if (!isPresent) throw new Error('You are not register');
+//         // const passwordChecker = await UserModel.findOne({
+//         //    where: {
+//         //        email,
+//         //        password
+//         //    }
+//         // });
+//         // if (!passwordChecker) throw new Error('Password is wrong');
+//         // const {id, name, password: hashPassword} = isPresent;
+//         const {id, name, password: hashPassword} = isPresent;
+//
+//         const isPassOK = await checkHashPassword(password, hashPassword);
+//         if (!isPassOK) throw new Error('Password is wrong');
+//
+//         const token = tokenizer({id, name});
+//         // res.json(passwordChecker);
+//         res.json({
+//             access: true,
+//             accessToken: token
+//         })
+//     }
+//     catch (e) {
+//         console.log(e);
+//         res.status(400).json({
+//             access: false,
+//             msg:e.message
+//         })
+//     }
+// };
+

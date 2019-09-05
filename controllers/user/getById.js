@@ -7,7 +7,7 @@ module.exports = async(req, res) => {
         const user = await userModel.findByPk(
             user_id,
             {
-            attributes: ['id', 'name', 'email']
+            attributes: ['id', 'name', 'email',]
         });
         if (!user) throw new Error('User is not found');
         res.json(user)
