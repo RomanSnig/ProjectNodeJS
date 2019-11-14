@@ -1,28 +1,25 @@
-// const user = sequelize.define()
-
 module.exports = (sequelize, DataTypes) => {
-    const user = sequelize.define('user', {
+    const pizza = sequelize.define('pizza', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         name: {
-            type: DataTypes.STRING,
-        },
-        email: {
             type: DataTypes.STRING
         },
-        password: {
+        comment: {
             type: DataTypes.STRING
         },
-        status: {
-            type: DataTypes.STRING,
-            defaultValue: 'user'
+        price: {
+            type: DataTypes.INTEGER
+        },
+        image: {
+            type: DataTypes.STRING
         }
     }, {
-        tableName: 'user',
+        tableName: 'pizza',
         timestamps: false
-    });
-    return user
+        });
+    return pizza
 };

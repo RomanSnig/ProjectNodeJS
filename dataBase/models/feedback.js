@@ -1,7 +1,5 @@
-// const user = sequelize.define()
-
 module.exports = (sequelize, DataTypes) => {
-    const user = sequelize.define('user', {
+    const feedback = sequelize.define('feedback', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -10,19 +8,15 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
         },
-        email: {
+        comment: {
             type: DataTypes.STRING
         },
-        password: {
+        userId: {
             type: DataTypes.STRING
         },
-        status: {
-            type: DataTypes.STRING,
-            defaultValue: 'user'
-        }
     }, {
-        tableName: 'user',
+        tableName: 'feedback',
         timestamps: false
     });
-    return user
+    return feedback
 };

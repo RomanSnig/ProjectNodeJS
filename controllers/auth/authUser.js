@@ -30,6 +30,7 @@ module.exports = async (req, res) =>{
       if (!isPassOK) throw new Error('Password is wrong');
 
       const token = tokenizer({id, name});
+      delete isPresent.dataValues.password;
       // const token = {id, name};
       // res.json(passwordChecker);
       res.json({
